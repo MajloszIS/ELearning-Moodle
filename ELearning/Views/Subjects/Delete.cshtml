@@ -1,0 +1,24 @@
+@model Subject
+@{
+    ViewData["Title"] = "Usuwanie przedmiotu";
+}
+
+<h1 class="h3 mb-3">Usuwanie przedmiotu</h1>
+
+<div class="alert alert-warning">
+    Czy na pewno chcesz usunąć przedmiot <strong>@Model.Name</strong>? Tej operacji nie można cofnąć.
+</div>
+
+<dl class="row">
+    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Code)</dt>
+    <dd class="col-sm-9">@(Model.Code ?? "—")</dd>
+    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Description)</dt>
+    <dd class="col-sm-9">@(Model.Description ?? "—")</dd>
+    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.CreatedAt)</dt>
+    <dd class="col-sm-9">@Model.CreatedAt.ToString("dd.MM.yyyy HH:mm")</dd>
+</dl>
+
+<form asp-action="Delete" asp-route-id="@Model.Id" method="post" class="d-flex gap-2">
+    <button type="submit" class="btn btn-danger">Usuń</button>
+    <a asp-action="Index" class="btn btn-outline-secondary">Anuluj</a>
+</form>

@@ -1,0 +1,49 @@
+@model List<Subject>
+@{
+    ViewData["Title"] = "Przedmioty";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">Przedmioty</h1>
+    <a asp-action="Create" class="btn btn-primary">+ Dodaj przedmiot</a>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Zamknij"></button>
+    </div>
+}
+
+@if (Model.Count == 0)
+{
+    <div class="alert alert-info">Brak przedmiotów. Dodaj pierwszy przedmiot.</div>
+}
+else
+{
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+        @foreach (var subject in Model)
+        {
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h2 class="h5 card-title">
+                            <a asp-action="Details" asp-route-id="@subject.Id" class="text-decoration-none">@subject.Name</a>
+                        </h2>
+                        @if (subject.Code != null)
+                        {
+                            <span class="badge text-bg-secondary mb-2">@subject.Code</span>
+                        }
+                        <p class="card-text text-muted small text-truncate">@subject.Description</p>
+                    </div>
+                    <div class="card-footer bg-transparent d-flex gap-2">
+                        <a asp-action="Details" asp-route-id="@subject.Id" class="btn btn-sm btn-outline-primary">Szczegóły</a>
+                        <a asp-action="Edit" asp-route-id="@subject.Id" class="btn btn-sm btn-outline-secondary">Edytuj</a>
+                        <a asp-action="Delete" asp-route-id="@subject.Id" class="btn btn-sm btn-outline-danger ms-auto">Usuń</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

@@ -1,0 +1,36 @@
+@model Subject
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Zamknij"></button>
+    </div>
+}
+
+<div class="d-flex justify-content-between align-items-start mb-3">
+    <div>
+        <h1 class="h3 mb-1">@Model.Name</h1>
+        @if (!string.IsNullOrEmpty(Model.Code))
+        {
+            <span class="badge text-bg-secondary">@Model.Code</span>
+        }
+    </div>
+    <div class="d-flex gap-2">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-secondary">Edytuj</a>
+        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger">Usuń</a>
+    </div>
+</div>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <h2 class="h6 text-muted">@Html.DisplayNameFor(m => m.Description)</h2>
+        <p class="mb-0" style="white-space: pre-line">@(Model.Description ?? "Brak opisu.")</p>
+    </div>
+</div>
+
+<p class="text-muted small">@Html.DisplayNameFor(m => m.CreatedAt): @Model.CreatedAt.ToString("dd.MM.yyyy HH:mm")</p>
+
